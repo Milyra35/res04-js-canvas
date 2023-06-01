@@ -33,7 +33,7 @@ function exercice6()
         }
         
         isPacman = !isPacman;
-    }, 1000);
+    }, 500);
 }
 
 function exercice5()
