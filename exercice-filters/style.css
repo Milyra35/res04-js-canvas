@@ -1,0 +1,85 @@
+body {
+    padding:0;
+    margin:0;
+    display: grid;
+    grid-template-rows: 10vh 10vh 80vh;
+}
+
+body > ul:first-of-type {
+    display: grid;
+    grid-template-columns: repeat(7, 5vw);
+    column-gap: 1vw;
+    list-style: none;
+}
+
+body > ul:nth-of-type(2) {
+    display: grid;
+    grid-template-columns: 15vw 15vw 15vw 15vw 15vw;
+    grid-auto-rows: 10vw;
+    column-gap: 1vw;
+    row-gap: 1vw;
+    list-style: none;
+}
+
+li[data-color='blue'] {
+    background-color: blue;
+}
+
+li[data-color='green'] {
+    background-color: green;
+}
+
+li[data-color='red'] {
+    background-color: red;
+}
+
+li[data-color='yellow'] {
+    background-color: yellow;
+}
+
+li[data-color='purple'] {
+    background-color: purple;
+}
+
+li[data-color='black'] {
+    background-color: black;
+}
+
+li[data-color='pink'] {
+    background-color: hotpink;
+}
+
+body > ul:first-of-type li[data-color='blue'].inactive {
+    background-color: lightblue;
+}
+
+body > ul:first-of-type li[data-color='green'].inactive {
+    background-color: lightgreen;
+}
+
+body > ul:first-of-type li[data-color='red'].inactive {
+    background-color: lightcoral;
+}
+
+body > ul:first-of-type li[data-color='yellow'].inactive {
+    background-color: lightgoldenrodyellow;
+}
+
+body > ul:first-of-type li[data-color='purple'].inactive {
+    background-color: lavender;
+}
+
+body > ul:first-of-type li[data-color='black'].inactive {
+    background-color: lightgray;
+}
+
+body > ul:first-of-type li[data-color='pink'].inactive {
+    background-color: pink;
+}
+
+body > ul:nth-of-type(2) li.inactive {
+    display: none;
+}
+
+
+

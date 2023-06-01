@@ -1,6 +1,39 @@
 function exercice6()
 {
-
+    let yellow = {
+        color:"#FFD65B",
+        radius:100,
+        x:110,
+        y:110
+    };
+    
+    let canvasDom = document.getElementById("ex6");
+    let ctx = canvasDom.getContext('2d');
+    
+    
+    
+    let pacman = new Image();
+    pacman.src = 'pacman.png';
+    let isPacman = true;
+    
+    setInterval(function() {
+        ctx.fillStyle = "grey";
+        ctx.fillRect(0,0, canvasDom.width, canvasDom.height);
+        
+        if(isPacman)
+        {
+            ctx.drawImage(pacman, 10, 10);
+        }
+        else 
+        {
+            ctx.fillStyle = yellow.color;
+            ctx.beginPath();
+            ctx.arc(yellow.x, yellow.y, yellow.radius, 0, 2 * Math.PI);
+            ctx.fill();
+        }
+        
+        isPacman = !isPacman;
+    }, 1000);
 }
 
 function exercice5()
