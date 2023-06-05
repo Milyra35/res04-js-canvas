@@ -138,7 +138,7 @@ function list() {
             filters[i].classList.toggle('inactive');
             
             
-            for (let i=0; i<boxes.length; i++) 
+            for (let i=0; i<boxes.length - 1; i++) 
             {
                 let color2 = boxes[i].getAttribute("data-color");
                 let currentBox = boxes[i].getBoundingClientRect();
@@ -146,20 +146,22 @@ function list() {
                 let nextBox = boxes[i+1].getBoundingClientRect();
                 // console.log(nextBox);
                 
-                let moveX = nextBox.x - currentBox.x;
-                let moveY = nextBox.y - currentBox.y;
+                let moveX = currentBox.x - nextBox.x;
+                let moveY = currentBox.y - nextBox.y;
                 
                 if(color === color2)
                 {
                     tableColor.push(boxes[i]);
                     boxes[i].classList.toggle("transparent");
-                    
                     if (nextBox)
                     {
-                        let moveX = currentBox.x - nextBox.x;
-                        let moveY = currentBox.y - nextBox.y;
                         boxes[i+1].style.transform = `translateX(${moveX}px) translateY(${moveY}px)`;
                     }
+                }
+                
+                for (let j=i+1; j<boxes.length; j++)
+                {
+                    boxes[j].style.transform = `translateX(${moveX}px) translateY(${moveY}px)`;
                 }
             }
         });
