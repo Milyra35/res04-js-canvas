@@ -1,6 +1,5 @@
 window.addEventListener("DOMContentLoaded", function() {
     playGame();
-    //initGame();
 });
 
 function playGame() {
@@ -21,13 +20,72 @@ function playGame() {
     
     let paddle = {
         color:"black",
-        x:150,
+        x:25,
         y:390,
-        width:100,
+        width:350,
         height:10,
         speed:6,
-        direction:0
+        direction:1
     };
+    
+    let bricks = [
+        {
+            color:"#855E2C",
+            width:50,
+            height:20,
+            x:0,
+            y:150
+        },
+        {
+            color:"#855E2C",
+            width:50,
+            height:20,
+            x:50,
+            y:150
+        },
+        {
+            color:"#855E2C",
+            width:50,
+            height:20,
+            x:100,
+            y:150
+        },
+        {
+            color:"#855E2C",
+            width:50,
+            height:20,
+            x:150,
+            y:150
+        },
+        {
+            color:"#855E2C",
+            width:50,
+            height:20,
+            x:200,
+            y:150
+        },
+        {
+            color:"#855E2C",
+            width:50,
+            height:20,
+            x:250,
+            y:150
+        },
+        {
+            color:"#855E2C",
+            width:50,
+            height:20,
+            x:300,
+            y:150
+        },
+        {
+            color:"#855E2C",
+            width:50,
+            height:20,
+            x:350,
+            y:150
+        }
+    ];
     
     let canvasDom = document.getElementById("canvas");
     let ctx = canvasDom.getContext('2d');
@@ -37,6 +95,31 @@ function playGame() {
         ctx.fillStyle = "#999";
         ctx.fillRect(0,0, canvasDom.width, canvasDom.height);
         ctx.fillStyle = game.color;
+        
+        // Create the bricks and detect the collisions with the ball
+        for (let i=0; i<bricks.length; i++)
+        {
+            ctx.fillStyle = bricks[i].color;
+            ctx.fillRect(bricks[i].x, bricks[i].y, bricks[i].width, bricks[i].height);
+            ctx.strokeStyle = "#fff";
+            ctx.strokeRect(bricks[i].x, bricks[i].y, bricks[i].width, bricks[i].height);
+            
+            // If the ball touches the bricks from the bottom
+            if (ball.y <= bricks[i].y + bricks[i].height && ball.x >= bricks[i].x && ball.x <= (bricks[i].x + bricks[i].width))
+            {
+                ball.directionY = ball.directionY * (-1);
+                ctx.clearRect(bricks[i].x, bricks[i].y, bricks[i].width, bricks[i].height);
+                bricks.splice([i], 1);
+            }
+            
+            // If the ball touches the bricks from the top
+            else if (ball.y + ball.radius >= bricks[i].y && ball.y <= bricks[i].y + bricks[i].height && ball.x >= bricks[i].x && ball.x <= (bricks[i].x + bricks[i].width))
+            {
+                ball.directionY = ball.directionY * (-1);
+                ctx.clearRect(bricks[i].x, bricks[i].y, bricks[i].width, bricks[i].height);
+                bricks.splice([i], 1);
+            }
+        }
         
         // The direction of the ball
         ball.x += 2 * ball.directionX;
@@ -100,18 +183,17 @@ function playGame() {
             else if (ball.y > 400)
             {
                 gameIsOver = true;
-                if (gameIsOver)
-                {
-                    ctx.font = "bold 40px sans-serif";
-                    ctx.fillStyle = "red";
-                    ctx.fillText("Game over !", 75, 100);
-                    
-                    gameIsOver = false;
-                    return;
-                }
             }
         }
         detectCollisions();
+        
+        if (gameIsOver)
+        {
+            ctx.font = "bold 40px sans-serif";
+            ctx.fillStyle = "red";
+            ctx.fillText("Game over !", 75, 100);
+            return;
+        }
         
         // Draw the paddle
         ctx.fillStyle = "A5702C";
@@ -125,10 +207,8 @@ function playGame() {
         // console.log(event.code);
         if (event.code === "ArrowRight")
         {
-            paddle.direction =+ 1;
             paddle.x += paddle.speed * paddle.direction;
-            
-            if (paddle.x >= 400)
+            if (paddle.x >= 350)
             {
                 paddle.x = 0;
             }
@@ -136,7 +216,6 @@ function playGame() {
         else if (event.code === "ArrowLeft")
         {
             paddle.x -= paddle.speed * paddle.direction;
-            
             if (paddle.x <= 0)
             {
                 paddle.x = 400;
